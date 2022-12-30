@@ -45,22 +45,21 @@ for path in image_path:
     image = net(image)
     image = image.reshape(-1, )
     all_images.append(image.detach().numpy())
-
-clt = KMeans(n_clusters=2)
+clt = KMeans(n_clusters=4)
 clt.fit(all_images)
 labelIDs = np.unique(clt.labels_)
 
 for labelID in labelIDs:
-	idxs = np.where(clt.labels_ == labelID)[0]
-	idxs = np.random.choice(idxs, size=min(25, len(idxs)),
-		replace=False)
-	show_box = []
-	for i in idxs:
-		image = cv2.imread(image_path[i])
-		image = cv2.resize(image, (96, 96))
-		show_box.append(image)
-	montage = build_montages(show_box, (96, 96), (5, 5))[0]
+    idxs = np.where(clt.labels_ == labelID)[0]
+    idxs = np.random.choice(idxs, size=min(50, len(idxs)),
+        replace=False)
+    show_box = []
+    for i in idxs:
+        image = cv2.imread(image_path[i])
+        image = cv2.resize(image, (96, 96))
+        show_box.append(image)
+    montage = build_montages(show_box, (96, 96), (5, 5))[0]
 
-	title = "Type {}".format(labelID)
-	cv2.imshow(title, montage)
-	cv2.waitKey(0)
+    title = "Type {}".format(labelID)
+    cv2.imshow(title, montage)
+    cv2.waitKey(0)
