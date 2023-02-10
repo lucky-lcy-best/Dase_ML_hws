@@ -51,7 +51,7 @@ labelIDs = np.unique(clt.labels_)
 
 for labelID in labelIDs:
     idxs = np.where(clt.labels_ == labelID)[0]
-    idxs = np.random.choice(idxs, size=min(50, len(idxs)),
+    idxs = np.random.choice(idxs, size=min(100, len(idxs)),
         replace=False)
     show_box = []
     for i in idxs:
